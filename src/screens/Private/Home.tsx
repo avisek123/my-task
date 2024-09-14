@@ -4,8 +4,11 @@ import {wrapper} from '../../styles';
 import {FabBtn, Lists, Loader} from '../../components';
 import {useGetAllPostsQuery} from '../../services';
 import {clearAllDataFromStorage} from '../../utils';
+import {useNavigation} from '@react-navigation/native';
+import {PrivateNavigationProps} from '../../types/allRoutes';
 
 const Home = () => {
+  const {navigate} = useNavigation<PrivateNavigationProps>();
   const {data, isLoading} = useGetAllPostsQuery();
 
   return (
@@ -28,7 +31,7 @@ const Home = () => {
       )}
       <FabBtn
         onPress={() => {
-          clearAllDataFromStorage();
+          navigate('AddPost');
         }}
       />
     </SafeAreaView>

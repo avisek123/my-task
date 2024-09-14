@@ -15,6 +15,11 @@ interface ListsProps {
 
 const Lists: React.FC<ListsProps> = ({title, desc, isLoading, id}) => {
   const {navigate} = useNavigation<PrivateNavigationProps>();
+  const navigateToEditScreen = () => {
+    navigate('AddPost', {
+      id,
+    });
+  };
   return (
     <TouchableOpacity
       onPress={() => {
@@ -33,7 +38,9 @@ const Lists: React.FC<ListsProps> = ({title, desc, isLoading, id}) => {
             style={styles.shimmerTitle}
             height={20}
             width={100}>
-            <Text style={styles.listTitle}>{title}</Text>
+            <Text style={styles.listTitle}>
+              {id}: {title}
+            </Text>
           </ShimmerPlaceholder>
           <ShimmerPlaceholder
             visible={!isLoading}
@@ -43,7 +50,7 @@ const Lists: React.FC<ListsProps> = ({title, desc, isLoading, id}) => {
             <Text style={styles.listDesc}>{desc}</Text>
           </ShimmerPlaceholder>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigateToEditScreen}>
           <MaterialIcons name="mode-edit" color={colors.black} size={22} />
         </TouchableOpacity>
       </View>
@@ -63,6 +70,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontWeight: 'bold',
     fontSize: 17,
+    width: '95%',
   },
   listDesc: {
     fontSize: 14,

@@ -10,6 +10,9 @@ export type PrivateStackParams = {
   Details: {
     id: string;
   };
+  AddPost?: {
+    id?: string;
+  };
 };
 
 export type PublicNavigationProps =

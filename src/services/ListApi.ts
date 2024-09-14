@@ -22,7 +22,26 @@ export const Lists = apiSlice.injectEndpoints({
         url: `posts/${id}`,
       }),
     }),
+    addPost: builder.mutation({
+      query: body => ({
+        url: 'posts',
+        method: 'POST',
+        body,
+      }),
+    }),
+    editPost: builder.mutation({
+      query: ({id, ...body}) => ({
+        url: `posts/${id}`,
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 });
 
-export const {useGetAllPostsQuery, useGetSinglePostQuery} = Lists;
+export const {
+  useGetAllPostsQuery,
+  useGetSinglePostQuery,
+  useAddPostMutation,
+  useEditPostMutation,
+} = Lists;
