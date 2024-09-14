@@ -1,0 +1,1 @@
+export {useGetAllPostsQuery} from './ListApi';
