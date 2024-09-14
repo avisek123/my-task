@@ -14,6 +14,7 @@ const PrivateRoutes = () => {
         name="Home"
         component={Private.Home}
       />
+      <Stack.Screen name="Details" component={Private.Details} />
     </Stack.Navigator>
   );
 };

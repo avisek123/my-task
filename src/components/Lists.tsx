@@ -3,16 +3,26 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
 import {colors} from '../styles';
+import {useNavigation} from '@react-navigation/native';
+import {PrivateNavigationProps} from '../types/allRoutes';
 // Define the props interface
 interface ListsProps {
   title: string;
   desc: string;
   isLoading: boolean;
+  id: string;
 }
 
-const Lists: React.FC<ListsProps> = ({title, desc, isLoading}) => {
+const Lists: React.FC<ListsProps> = ({title, desc, isLoading, id}) => {
+  const {navigate} = useNavigation<PrivateNavigationProps>();
   return (
-    <View style={styles.listContainer}>
+    <TouchableOpacity
+      onPress={() => {
+        navigate('Details', {
+          id,
+        });
+      }}
+      style={styles.listContainer}>
       <View
         style={{
           flexDirection: 'row',
@@ -34,10 +44,10 @@ const Lists: React.FC<ListsProps> = ({title, desc, isLoading}) => {
           </ShimmerPlaceholder>
         </View>
         <TouchableOpacity>
-          <MaterialIcons name="mode-edit" color={colors.PRIMARY} size={22} />
+          <MaterialIcons name="mode-edit" color={colors.black} size={22} />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

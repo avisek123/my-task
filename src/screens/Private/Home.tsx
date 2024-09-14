@@ -12,7 +12,12 @@ const Home = () => {
         data={data}
         keyExtractor={item => item?.id?.toString()}
         renderItem={({item}) => (
-          <Lists title={item.title} desc={item.body} isLoading={isLoading} /> // Passing props to Lists
+          <Lists
+            title={item.title}
+            id={item?.id}
+            desc={item.body}
+            isLoading={isLoading}
+          /> // Passing props to Lists
         )}
       />
       <FabBtn onPress={() => {}} />

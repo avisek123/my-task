@@ -7,6 +7,9 @@ export type PublicStackParams = {
 
 export type PrivateStackParams = {
   Home: undefined;
+  Details: {
+    id: string;
+  };
 };
 
 export type PublicNavigationProps =
