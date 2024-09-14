@@ -2282,6 +2282,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/netinfo@npm:^11.4.0":
+  version: 11.4.0
+  resolution: "@react-native-community/netinfo@npm:11.4.0"
+  peerDependencies:
+    react-native: ">=0.59"
+  checksum: 634efa40917db1febb04b925658d1ee78bb612585a96533b477f8cbf989be5e4a6ed2b25d8fe24982cf95619467aed86a742a566b3d13393147fcbaf606cda26
+  languageName: node
+  linkType: hard
+
 "@react-native/assets-registry@npm:0.75.2":
   version: 0.75.2
   resolution: "@react-native/assets-registry@npm:0.75.2"
@@ -3059,6 +3068,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@react-native-community/netinfo": ^11.4.0
     "@react-native/babel-preset": 0.75.2
     "@react-native/eslint-config": 0.75.2
     "@react-native/metro-config": 0.75.2
@@ -3076,6 +3086,7 @@ __metadata:
     prettier: 2.8.8
     react: 18.3.1
     react-native: 0.75.2
+    react-native-mmkv-storage: ^0.10.3
     react-native-safe-area-context: ^4.11.0
     react-native-screens: ^3.34.0
     react-native-shimmer-placeholder: ^2.0.9
@@ -8092,6 +8103,17 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-mmkv-storage@npm:^0.10.3":
+  version: 0.10.3
+  resolution: "react-native-mmkv-storage@npm:0.10.3"
+  peerDependencies:
+    react-native: "*"
+  bin:
+    mmkv-link: autolink/postlink/run.js
+  checksum: ca0774e9e835101f15b8ee3f196e7618fb4536ace1797d3d7139c43a126e12734c4b487b16fdca02af90dfabd1c19b1480124c4db06d519df83ff908cc4978b3
   languageName: node
   linkType: hard
 
