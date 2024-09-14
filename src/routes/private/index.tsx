@@ -7,13 +7,7 @@ const Stack = createNativeStackNavigator<PrivateStackParams>();
 const PrivateRoutes = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="Home"
-        component={Private.Home}
-      />
+      <Stack.Screen name="Home" component={Private.Home} />
       <Stack.Screen name="Details" component={Private.Details} />
     </Stack.Navigator>
   );

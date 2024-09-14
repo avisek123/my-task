@@ -9,10 +9,6 @@ interface IPost {
 interface IPosts {
   data: IPost[];
 }
-// Define the interface for the response
-interface SinglePostResponse {
-  data: IPost;
-}
 
 export const Lists = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -21,7 +17,7 @@ export const Lists = apiSlice.injectEndpoints({
         url: `posts`,
       }),
     }),
-    getSinglePost: builder.query<SinglePostResponse, string>({
+    getSinglePost: builder.query<IPost, string>({
       query: id => ({
         url: `posts/${id}`,
       }),
