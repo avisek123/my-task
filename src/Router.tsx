@@ -1,11 +1,8 @@
 import React from 'react';
-import {PrivateRoutes} from './routes';
+import {PrivateRoutes, PublicRoutes} from './routes';
 const Router = () => {
-  return (
-    <>
-      <PrivateRoutes />
-    </>
-  );
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  return <>{isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}</>;
 };
 
 export default Router;
