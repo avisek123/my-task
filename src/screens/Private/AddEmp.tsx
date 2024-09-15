@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: colors.white,
     color: colors.black,
+    height: 40,
   },
   btnWrapper: {
     marginTop: 30,

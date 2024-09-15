@@ -1,11 +1,11 @@
-import {MMKVLoader} from 'react-native-mmkv-storage';
+import {MMKV} from 'react-native-mmkv';
 
-const storage = new MMKVLoader().initialize();
+const storage = new MMKV();
 
 export const saveDataToStorage = async (key: string, data: any) => {
   console.log('first', key, data);
   try {
-    await storage.setStringAsync(key, JSON.stringify(data));
+    await storage.set(key, JSON.stringify(data));
   } catch (error) {
     console.error('Error saving data to MMKV storage', error);
   }
@@ -13,7 +13,7 @@ export const saveDataToStorage = async (key: string, data: any) => {
 
 export const getDataFromStorage = async (key: string) => {
   try {
-    const jsonValue = await storage.getStringAsync(key);
+    const jsonValue = await storage.getString(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (error) {
     console.error('Error retrieving data from MMKV storage', error);
@@ -23,7 +23,7 @@ export const getDataFromStorage = async (key: string) => {
 export const clearAllDataFromStorage = async () => {
   try {
     // Clear all keys
-    await storage.clearStore();
+    await storage.clearAll();
     console.log('All data cleared from MMKV storage');
   } catch (error) {
     console.error('Error clearing data from MMKV storage:', error);
