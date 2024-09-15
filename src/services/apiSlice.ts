@@ -42,6 +42,7 @@ const baseQueryWithAPI = async (
   if (method === 'GET' && url && result.data) {
     try {
       // Store response data in MMKV
+      console.log('url', url, result?.data);
       await saveDataToStorage(url, result.data);
       console.log('Successfully stored data in MMKV');
     } catch (error) {

@@ -3,6 +3,7 @@ import {MMKVLoader} from 'react-native-mmkv-storage';
 const storage = new MMKVLoader().initialize();
 
 export const saveDataToStorage = async (key: string, data: any) => {
+  console.log('first', key, data);
   try {
     await storage.setStringAsync(key, JSON.stringify(data));
   } catch (error) {

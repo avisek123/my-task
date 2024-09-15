@@ -1,24 +1,29 @@
-import {FlatList, SafeAreaView} from 'react-native';
+// all external imports
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {FlatList, SafeAreaView, Text} from 'react-native';
 import React from 'react';
-import {wrapper} from '../../styles';
+// all internal imports
+import {PrivateNavigationProps} from '../../types/allRoutes';
 import {FabBtn, Lists, Loader} from '../../components';
 import {useGetAllEmployeesQuery} from '../../services';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {PrivateNavigationProps} from '../../types/allRoutes';
+import {wrapper} from '../../styles';
 
 const Home = () => {
   const {navigate} = useNavigation<PrivateNavigationProps>();
-  const {data, isLoading, refetch} = useGetAllEmployeesQuery();
-  console.log('data', data);
+  const {data, isLoading, refetch, error, isError} = useGetAllEmployeesQuery();
+
   useFocusEffect(
     React.useCallback(() => {
       refetch();
     }, [refetch]),
   );
+
   return (
     <SafeAreaView style={wrapper}>
       {isLoading ? (
         <Loader />
+      ) : isError ? (
+        <Text>{error?.data || 'Something went wrong!'}</Text>
       ) : (
         <FlatList
           data={data}
@@ -28,6 +33,7 @@ const Home = () => {
           )}
         />
       )}
+
       <FabBtn
         onPress={() => {
           navigate('AddEmp');

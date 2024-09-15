@@ -1,9 +1,13 @@
+// all external imports
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {colors} from '../styles';
 import {useNavigation} from '@react-navigation/native';
+// all internal imports
 import {PrivateNavigationProps} from '../types/allRoutes';
+import {strings} from '../constants/strings';
+import {colors} from '../styles';
+
 // Define the props interface
 interface ListsProps {
   name: string;
@@ -31,9 +35,15 @@ const Lists: React.FC<ListsProps> = ({name, email, id}) => {
           flexDirection: 'row',
         }}>
         <View style={{flex: 1}}>
-          <Text style={styles.listTitle}>Employee Name : {name}</Text>
-          <Text style={styles.listDesc}>Employee Email : {email}</Text>
-          <Text style={styles.listDesc}>Employee ID : {id}</Text>
+          <Text style={styles.listTitle}>
+            {strings.emp_Name} {name}
+          </Text>
+          <Text style={styles.listDesc}>
+            {strings.emp_email} {email}
+          </Text>
+          <Text style={styles.listDesc}>
+            {strings.emp_id} {id}
+          </Text>
         </View>
         <TouchableOpacity onPress={navigateToEditScreen}>
           <MaterialIcons name="mode-edit" color={colors.black} size={22} />

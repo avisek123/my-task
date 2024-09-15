@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   ActivityIndicator,
   Alert,
@@ -10,8 +10,9 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useLayoutEffect} from 'react';
+import {strings} from '../../constants/strings';
 import {colors, wrapper} from '../../styles';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {isValidEmail} from '../../utils';
 import {
   PrivateNavigationProps,
   PrivateRootRouteProps,
@@ -21,7 +22,6 @@ import {
   useEditPostMutation,
   useGetSingleEmpQuery,
 } from '../../services/EmpApi';
-import {isValidEmail} from '../../utils';
 
 const AddEmp = () => {
   const {params} = useRoute<PrivateRootRouteProps<'AddEmp'>>();
@@ -29,18 +29,16 @@ const AddEmp = () => {
   const {data} = useGetSingleEmpQuery(params?.id ?? '');
   const [loading, setLoading] = React.useState(false);
   const [addEmp, {isSuccess, reset}] = useAddEmpMutation();
-  const [
-    editPost,
-    {isSuccess: editSuccess, reset: editReset, data: editData, error},
-  ] = useEditPostMutation();
+  const [editPost, {isSuccess: editSuccess, reset: editReset}] =
+    useEditPostMutation();
   const {setOptions} = useNavigation();
   const [empName, setEmpName] = React.useState('');
   const [empEmail, setEmpEmail] = React.useState('');
   useLayoutEffect(() => {
     if (params?.id) {
-      setOptions({title: 'Edit Employee'});
+      setOptions({title: strings.editEmp});
     } else {
-      setOptions({title: 'Create Employee'});
+      setOptions({title: strings.createEmp});
     }
   }, [setOptions, params?.id]);
 
@@ -76,9 +74,9 @@ const AddEmp = () => {
     }
   };
   isSuccess &&
-    Alert.alert('Success', 'Successfully submitted', [
+    Alert.alert(strings.Success, strings.add_success, [
       {
-        text: 'OK',
+        text: strings.ok,
         onPress: () => {
           reset();
           goBack();
@@ -86,35 +84,35 @@ const AddEmp = () => {
       },
     ]);
   editSuccess &&
-    Alert.alert('Success', 'Successfully edited', [
+    Alert.alert(strings.Success, strings.edit_success, [
       {
-        text: 'OK',
+        text: strings.ok,
         onPress: () => {
           editReset();
           goBack();
         },
       },
     ]);
-  console.log('error', error);
+
   return (
     <SafeAreaView style={[wrapper, {backgroundColor: colors.white}]}>
       <View
         style={{
           margin: 20,
         }}>
-        <Text style={styles.label}>Employee Name</Text>
+        <Text style={styles.label}>{strings.emp_Name}</Text>
         <TextInput
           value={empName}
           onChangeText={txt => setEmpName(txt)}
-          placeholder="Enter name here"
+          placeholder={strings.enterName}
           placeholderTextColor="#888"
           style={styles.input}
         />
-        <Text style={styles.label}>Employee Email</Text>
+        <Text style={styles.label}>{strings.emp_email}</Text>
         <TextInput
           value={empEmail}
           onChangeText={txt => setEmpEmail(txt)}
-          placeholder="Enter email here"
+          placeholder={strings.enterEmail}
           placeholderTextColor="#888"
           style={styles.input}
         />
@@ -122,7 +120,7 @@ const AddEmp = () => {
           {loading ? (
             <ActivityIndicator color={colors.white} size={'small'} />
           ) : (
-            <Text style={styles.btnText}>Submit</Text>
+            <Text style={styles.btnText}>{strings.submit}</Text>
           )}
         </TouchableOpacity>
       </View>
@@ -135,12 +133,13 @@ export default AddEmp;
 const styles = StyleSheet.create({
   label: {
     fontSize: 15,
-    color: '#333', // Dark grey for label text
+    color: colors.greyTwo, // Dark grey for label text
     marginBottom: 8,
     marginTop: 10,
+    fontWeight: '600',
   },
   input: {
-    borderColor: '#ccc', // Light grey border
+    borderColor: colors.lightGreyOne, // Light grey border
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,

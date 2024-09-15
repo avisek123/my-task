@@ -4,6 +4,8 @@ export const colors = {
   lightGrey: '#EBEAED',
   white: '#fff',
   greyOne: '#504F54',
+  greyTwo: '#333',
+  lightGreyOne: '#ccc',
 };
 
 export const wrapper = {
