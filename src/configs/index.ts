@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://ca429a0ea3e978b6c190.free.beeceptor.com/api/';
+export const BASE_URL = 'https://ca30a14140f05cb50b21.free.beeceptor.com/api/';
