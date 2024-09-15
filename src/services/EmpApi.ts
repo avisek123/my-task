@@ -1,8 +1,8 @@
 import {apiSlice} from './apiSlice';
 interface IPost {
   id: number;
-  title: string;
-  body: string;
+  name: string;
+  email: string;
 }
 
 // For query return type
@@ -10,28 +10,28 @@ interface IPosts {
   data: IPost[];
 }
 
-export const Lists = apiSlice.injectEndpoints({
+export const Emp = apiSlice.injectEndpoints({
   endpoints: builder => ({
-    getAllPosts: builder.query<{data: {data: IPosts[]}}, void>({
+    getAllEmployees: builder.query<{data: {data: IPosts[]}}, void>({
       query: () => ({
-        url: `posts`,
+        url: `users`,
       }),
     }),
-    getSinglePost: builder.query<IPost, string>({
+    getSingleEmp: builder.query<IPost, string>({
       query: id => ({
-        url: `posts/${id}`,
+        url: `users/${id}`,
       }),
     }),
-    addPost: builder.mutation({
+    addEmp: builder.mutation({
       query: body => ({
-        url: 'posts',
+        url: 'users',
         method: 'POST',
         body,
       }),
     }),
     editPost: builder.mutation({
       query: ({id, ...body}) => ({
-        url: `posts/${id}`,
+        url: `users/${id}`,
         method: 'PUT',
         body,
       }),
@@ -40,8 +40,8 @@ export const Lists = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetAllPostsQuery,
-  useGetSinglePostQuery,
-  useAddPostMutation,
+  useGetAllEmployeesQuery,
+  useGetSingleEmpQuery,
+  useAddEmpMutation,
   useEditPostMutation,
-} = Lists;
+} = Emp;

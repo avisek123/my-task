@@ -10,7 +10,7 @@ export type PrivateStackParams = {
   Details: {
     id: string;
   };
-  AddPost?: {
+  AddEmp?: {
     id?: string;
   };
 };

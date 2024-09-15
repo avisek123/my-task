@@ -1,1 +1,1 @@
-export {useGetAllPostsQuery, useEditPostMutation} from './ListApi';
+export {useGetAllEmployeesQuery, useEditPostMutation} from './EmpApi';

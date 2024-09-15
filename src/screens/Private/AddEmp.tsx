@@ -17,51 +17,56 @@ import {
   PrivateRootRouteProps,
 } from '../../types/allRoutes';
 import {
-  useAddPostMutation,
+  useAddEmpMutation,
   useEditPostMutation,
-  useGetSinglePostQuery,
-} from '../../services/ListApi';
+  useGetSingleEmpQuery,
+} from '../../services/EmpApi';
+import {isValidEmail} from '../../utils';
 
-const AddPost = () => {
-  const {params} = useRoute<PrivateRootRouteProps<'AddPost'>>();
+const AddEmp = () => {
+  const {params} = useRoute<PrivateRootRouteProps<'AddEmp'>>();
   const {goBack} = useNavigation<PrivateNavigationProps>();
-  const {data} = useGetSinglePostQuery(params?.id ?? '');
+  const {data} = useGetSingleEmpQuery(params?.id ?? '');
   const [loading, setLoading] = React.useState(false);
-  const [addPost, {isSuccess, reset, data: SuccessData}] = useAddPostMutation();
-  const [editPost, {isSuccess: editSuccess, reset: editReset, error}] =
-    useEditPostMutation();
+  const [addEmp, {isSuccess, reset}] = useAddEmpMutation();
+  const [
+    editPost,
+    {isSuccess: editSuccess, reset: editReset, data: editData, error},
+  ] = useEditPostMutation();
   const {setOptions} = useNavigation();
-  const [title, setTitle] = React.useState('');
-  const [desc, setDesc] = React.useState('');
+  const [empName, setEmpName] = React.useState('');
+  const [empEmail, setEmpEmail] = React.useState('');
   useLayoutEffect(() => {
     if (params?.id) {
-      setOptions({title: 'Edit Post'});
+      setOptions({title: 'Edit Employee'});
     } else {
-      setOptions({title: 'Create a New Post'});
+      setOptions({title: 'Create Employee'});
     }
   }, [setOptions, params?.id]);
 
   useEffect(() => {
     if (params?.id) {
-      setTitle(data?.title ?? '');
-      setDesc(data?.body ?? '');
+      setEmpName(data?.name ?? '');
+      setEmpEmail(data?.email ?? '');
     }
   }, [params?.id, data]);
 
   const onSubmit = async () => {
+    if (!isValidEmail(empEmail))
+      return Alert.alert('Alert', 'Please enter a valid email!');
     try {
       setLoading(true);
-      if (!title && !desc)
+      if (!empName && !empEmail)
         return Alert.alert('Error', 'Please fill all the fields.');
       if (!params?.id) {
-        await addPost({
-          title: title,
-          body: desc,
+        await addEmp({
+          name: empName,
+          email: empEmail,
         });
       } else {
         await editPost({
-          title: title,
-          body: desc,
+          name: empName,
+          email: empEmail,
           id: params?.id,
         });
       }
@@ -90,30 +95,28 @@ const AddPost = () => {
         },
       },
     ]);
-  console.log('isError', error);
+  console.log('error', error);
   return (
     <SafeAreaView style={[wrapper, {backgroundColor: colors.white}]}>
       <View
         style={{
           margin: 20,
         }}>
-        <Text style={styles.label}>Post Title</Text>
+        <Text style={styles.label}>Employee Name</Text>
         <TextInput
-          value={title}
-          onChangeText={txt => setTitle(txt)}
-          placeholder="Enter title here"
+          value={empName}
+          onChangeText={txt => setEmpName(txt)}
+          placeholder="Enter name here"
           placeholderTextColor="#888"
           style={styles.input}
         />
-        <Text style={styles.label}>Post Description</Text>
+        <Text style={styles.label}>Employee Email</Text>
         <TextInput
-          value={desc}
-          onChangeText={txt => setDesc(txt)}
-          placeholder="Enter description here"
+          value={empEmail}
+          onChangeText={txt => setEmpEmail(txt)}
+          placeholder="Enter email here"
           placeholderTextColor="#888"
-          style={styles.multiInput}
-          multiline={true}
-          numberOfLines={4}
+          style={styles.input}
         />
         <TouchableOpacity onPress={onSubmit} style={styles.btnWrapper}>
           {loading ? (
@@ -127,7 +130,7 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default AddEmp;
 
 const styles = StyleSheet.create({
   label: {
@@ -144,17 +147,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: colors.white,
     color: colors.black,
-  },
-  multiInput: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    fontSize: 16,
-    backgroundColor: colors.white,
-    color: colors.black,
-    textAlignVertical: 'top',
-    minHeight: 100,
   },
   btnWrapper: {
     marginTop: 30,

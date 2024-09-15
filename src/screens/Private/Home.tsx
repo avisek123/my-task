@@ -2,15 +2,19 @@ import {FlatList, SafeAreaView} from 'react-native';
 import React from 'react';
 import {wrapper} from '../../styles';
 import {FabBtn, Lists, Loader} from '../../components';
-import {useGetAllPostsQuery} from '../../services';
-import {clearAllDataFromStorage} from '../../utils';
-import {useNavigation} from '@react-navigation/native';
+import {useGetAllEmployeesQuery} from '../../services';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {PrivateNavigationProps} from '../../types/allRoutes';
 
 const Home = () => {
   const {navigate} = useNavigation<PrivateNavigationProps>();
-  const {data, isLoading} = useGetAllPostsQuery();
-
+  const {data, isLoading, refetch} = useGetAllEmployeesQuery();
+  console.log('data', data);
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+    }, [refetch]),
+  );
   return (
     <SafeAreaView style={wrapper}>
       {isLoading ? (
@@ -20,18 +24,13 @@ const Home = () => {
           data={data}
           keyExtractor={item => item?.id?.toString()}
           renderItem={({item}) => (
-            <Lists
-              title={item.title}
-              id={item?.id}
-              desc={item.body}
-              isLoading={isLoading}
-            /> // Passing props to Lists
+            <Lists name={item.name} id={item?.id} email={item.email} /> // Passing props to Lists
           )}
         />
       )}
       <FabBtn
         onPress={() => {
-          navigate('AddPost');
+          navigate('AddEmp');
         }}
       />
     </SafeAreaView>

@@ -9,7 +9,7 @@ const PrivateRoutes = () => {
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Private.Home} />
       <Stack.Screen name="Details" component={Private.Details} />
-      <Stack.Screen name="AddPost" component={Private.AddPost} />
+      <Stack.Screen name="AddEmp" component={Private.AddEmp} />
     </Stack.Navigator>
   );
 };

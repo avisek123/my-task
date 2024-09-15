@@ -1,22 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
 import {colors} from '../styles';
 import {useNavigation} from '@react-navigation/native';
 import {PrivateNavigationProps} from '../types/allRoutes';
 // Define the props interface
 interface ListsProps {
-  title: string;
-  desc: string;
-  isLoading: boolean;
+  name: string;
+  email: string;
   id: string;
 }
 
-const Lists: React.FC<ListsProps> = ({title, desc, isLoading, id}) => {
+const Lists: React.FC<ListsProps> = ({name, email, id}) => {
   const {navigate} = useNavigation<PrivateNavigationProps>();
   const navigateToEditScreen = () => {
-    navigate('AddPost', {
+    navigate('AddEmp', {
       id,
     });
   };
@@ -33,22 +31,9 @@ const Lists: React.FC<ListsProps> = ({title, desc, isLoading, id}) => {
           flexDirection: 'row',
         }}>
         <View style={{flex: 1}}>
-          <ShimmerPlaceholder
-            visible={!isLoading}
-            style={styles.shimmerTitle}
-            height={20}
-            width={100}>
-            <Text style={styles.listTitle}>
-              {id}: {title}
-            </Text>
-          </ShimmerPlaceholder>
-          <ShimmerPlaceholder
-            visible={!isLoading}
-            style={styles.shimmerDesc}
-            height={14}
-            width={150}>
-            <Text style={styles.listDesc}>{desc}</Text>
-          </ShimmerPlaceholder>
+          <Text style={styles.listTitle}>Employee Name : {name}</Text>
+          <Text style={styles.listDesc}>Employee Email : {email}</Text>
+          <Text style={styles.listDesc}>Employee ID : {id}</Text>
         </View>
         <TouchableOpacity onPress={navigateToEditScreen}>
           <MaterialIcons name="mode-edit" color={colors.black} size={22} />
@@ -76,6 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.greyOne,
     width: '100%',
+    fontWeight: '600',
   },
   shimmerTitle: {
     marginBottom: 8,
